@@ -1,0 +1,123 @@
+{
+  "stages": {
+    "merge": [
+      {
+        "path": "/inspection/counters",
+        "body": [
+          {
+            "counter": "north",
+            "range": [
+              1,
+              3
+            ],
+            "missing": [
+              2
+            ]
+          },
+          {
+            "counter": "south",
+            "range": [
+              1,
+              4
+            ],
+            "missing": []
+          }
+        ]
+      },
+      {
+        "path": "/inspection/batch",
+        "body": [
+          {
+            "seq": 4,
+            "proof": "T6",
+            "supersedes": "T4",
+            "item": "shell",
+            "outcome": "fail"
+          }
+        ],
+        "query": {
+          "counter": "south",
+          "part": "4"
+        }
+      },
+      {
+        "path": "/turnstile/passes",
+        "body": [
+          {
+            "pass": "PG1",
+            "athlete": "P",
+            "mask": "M",
+            "gate": "A",
+            "state": "loaded"
+          },
+          {
+            "pass": "PG2",
+            "athlete": "Q",
+            "mask": "N",
+            "gate": "B",
+            "state": "entered"
+          }
+        ]
+      },
+      {
+        "path": "/turnstile/revoke",
+        "body": {
+          "state": "received"
+        },
+        "method": "POST",
+        "payload": {
+          "pass": "PG1",
+          "gate": "A"
+        },
+        "status": 202
+      },
+      {
+        "path": "/turnstile/issue",
+        "body": {
+          "error": "旧门仍有载入凭证"
+        },
+        "method": "POST",
+        "payload": {
+          "gate": "B",
+          "mask": "M"
+        },
+        "status": 409
+      }
+    ],
+    "acknowledged": [
+      {
+        "path": "/turnstile/passes",
+        "body": [
+          {
+            "pass": "PG1",
+            "athlete": "P",
+            "mask": "M",
+            "gate": "A",
+            "state": "revoked"
+          },
+          {
+            "pass": "PG2",
+            "athlete": "Q",
+            "mask": "N",
+            "gate": "B",
+            "state": "entered"
+          }
+        ]
+      },
+      {
+        "path": "/turnstile/issue",
+        "body": {
+          "pass": "PG3",
+          "state": "printed"
+        },
+        "method": "POST",
+        "payload": {
+          "gate": "B",
+          "mask": "M2"
+        },
+        "status": 201
+      }
+    ]
+  },
+  "common": []
+}
