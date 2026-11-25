@@ -3,12 +3,31 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "main": "index.mjs",
+  "exports": {
+    ".": "./index.mjs",
+    "./core": "./core.mjs",
+    "./client": "./client.mjs",
+    "./supervisor": "./supervisor.mjs",
+    "./server": "./server.mjs",
+    "./checkin": "./checkin.mjs",
+    "./board": "./board.mjs",
+    "./engine": "./engine.mjs",
+    "./*.mjs": "./*.mjs",
+    "./*": "./*.mjs"
+  },
   "engines": {
     "node": "22.23.4"
   },
   "scripts": {
     "source": "node source/source.mjs",
-    "test": "node --test",
-    "provider": "node source/provider.mjs"
+    "provider": "node source/provider.mjs",
+    "start": "node server.mjs",
+    "dev": "node dev.mjs",
+    "all": "node dev.mjs",
+    "board": "node server.mjs",
+    "checkin": "node server.mjs",
+    "cli": "node cli.mjs",
+    "test": "node --test"
   }
 }
